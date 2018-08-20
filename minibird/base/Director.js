@@ -1,10 +1,15 @@
 import { DataStore } from "./DataStore.js";
+import { UpPencil } from "../runtime/UpPencil.js";
+import { DownPencil } from "../runtime/DownPencil.js";
 
 // 导演类
 
 export class Director {
   constructor() {
-    console.log('构造器初始化')
+    // console.log('构造器初始化')
+    this.dataStore = DataStore.getInstance() // 模拟单例
+    // 基础变量配置
+    this.moveSpeed = 2 
   }
   /**
    * javascript 单例模式
@@ -18,13 +23,27 @@ export class Director {
     return Director.instance
   }
 
+  /**
+   * 创建铅笔方法
+   */
+  createPencil() {
+    const minTop = window.innerHeight/8
+    const maxTop = window.innerHeight/2
+    // 随机高度
+    const top = minTop + Math.random() * (maxTop - minTop)
+    this.dataStore.get('pencils').push(new UpPencil(top))
+    this.dataStore.get('pencils').push(new DownPencil(top))
+  }
+
   run() {
-    this.dataStore = DataStore.getInstance()
     this.dataStore.get('background').draw()
-    // backgroundSprite.draw()
     // this.dataStore.get('birds').draw()
-    // birdsSprite.draw()
-    this.dataStore.get('land').draw()
-    requestAnimationFrame(() => this.run())
+    this.dataStore.get('pencils').forEach(element => {
+      element.draw()
+    });
+    this.dataStore.get('land').draw() // land最后绘制使得陆地在最上方
+
+    let timer = requestAnimationFrame(() => this.run())
+    this.dataStore.put('timer', timer)
   }
 }

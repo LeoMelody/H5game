@@ -1,4 +1,5 @@
 import { Sprite } from "../base/Sprite.js";
+import { Director } from "../base/Director.js";
 
 // 陆地类
 
@@ -9,7 +10,7 @@ export class Land extends Sprite {
     // 地板水平变化坐标
     this.landX = 0
     // 地板移动速度
-    this.landSpeed = 2
+    this.landSpeed = Director.getInstance().moveSpeed
   }
 
   draw() {
