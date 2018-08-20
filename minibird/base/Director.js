@@ -20,9 +20,11 @@ export class Director {
 
   run() {
     this.dataStore = DataStore.getInstance()
-    const backgroundSprite = this.dataStore.get('background')
-    backgroundSprite.draw()
-    const birdsSprite = this.dataStore.get('birds')
-    birdsSprite.draw()
+    this.dataStore.get('background').draw()
+    // backgroundSprite.draw()
+    // this.dataStore.get('birds').draw()
+    // birdsSprite.draw()
+    this.dataStore.get('land').draw()
+    requestAnimationFrame(() => this.run())
   }
 }

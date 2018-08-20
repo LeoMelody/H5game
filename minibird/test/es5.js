@@ -200,7 +200,14 @@
   inheritProto(Fish, GreetAnimal)
 
   let fish = new Fish('xy', 10) // JS中完美的继承方案
-  console.log(fish) // 完美的鱼类
+  console.log(fish instanceof GreetAnimal) // 完美的鱼类
 
-  // 其实不完美，完美的话它就是人了。这里还是使用了较为
+  // 其实不完美，完美的话它就是人了。这里还是使用了较为粗糙的写法：
+  // 开始进化：
+  const FishMan = function() {
+    GreetAnimal.call(this, ...arguments)
+  }
+  function inheritGreet(subType, superType) {
+
+  }
 })()

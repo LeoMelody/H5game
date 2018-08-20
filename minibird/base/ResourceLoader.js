@@ -28,6 +28,7 @@ export class ResourceLoader {
   }
 
   static create() {
+    // 这里可能想要做成一个单例，也可能要做成根据实际场景来加载不同资源的loader
     return new ResourceLoader()    
   }
 }
