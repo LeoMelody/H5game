@@ -36,9 +36,19 @@ export class Director {
   }
 
   run() {
+    if (this.isOver) { // 如果over就结束
+      cancelAnimationFrame(this.dataStore.get('timer'))
+      this.dataStore.destroy() 
+      return 
+    } 
     this.dataStore.get('background').draw()
     // this.dataStore.get('birds').draw()
-    this.dataStore.get('pencils').forEach(element => {
+    const pencils = this.dataStore.get('pencils')
+    // 销毁铅笔✏️
+    pencils[0] && pencils[0].x + pencils[0].width <= 0 && pencils.splice(0,2)
+    // 控制创建铅笔✏️
+    pencils[0] && pencils[0].x <= (window.innerWidth - pencils[0].width)/2 && pencils.length === 2 && this.createPencil();
+    pencils.forEach(element => {
       element.draw()
     });
     this.dataStore.get('land').draw() // land最后绘制使得陆地在最上方
